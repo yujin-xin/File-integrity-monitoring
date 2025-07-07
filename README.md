@@ -16,4 +16,3 @@ cd file-integrity-checker
 python3 FIM.py "./root"
 Now the File Integrity Checker will scan...
 ```
-sdfd
