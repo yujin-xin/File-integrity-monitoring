@@ -19,6 +19,14 @@ A lightweight, cross-platform File Integrity Monitoring (FIM) tool developed in 
 * Hash algorithm flexibility supports varying levels of security or compliance requirements.
 * CLI design enables seamless integration into existing shell scripts, cron jobs, or DevOps workflows.
 
+## Technical Stack
+* Language: Python (standard library only)
+* Platform: Cross-platform (Windows, Linux, macOS)
+* Interface: Command-line interface (CLI)
+
+
+
+
 # Installation
 
 ```bash
