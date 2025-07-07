@@ -162,7 +162,7 @@ def show_tree(path):
         print(f"{indent}📁 {os.path.basename(root)}/")
         
         sub_indent = "│   " * (level + 1)
-        for file in files:
+        for file in files: 
             print(f"{sub_indent}📄 {file}")
 
 def main():
