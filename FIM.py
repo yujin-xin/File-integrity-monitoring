@@ -78,15 +78,13 @@ def check_integrity(path):
         return
     
     changes = []
+    current_files = set()  # Track all current files
     
+    # First pass: Check existing files (modified and new)
     for root, dirs, files in os.walk(path):
-            
         for file in files:
-            
-
             filepath = os.path.join(root, file)
-            if filepath not in prev_baseline:
-                print(f"{filepath} has been removed")
+            current_files.add(filepath)  # Keep track of current files
             
             try:
                 current_size = os.path.getsize(filepath)
@@ -95,11 +93,11 @@ def check_integrity(path):
                 if filepath in prev_baseline:
                     old_info = prev_baseline[filepath]
 
-                    # Fast check: First check size and time (super fast!)
+                    # Fast check: First check size and time instead of hashing directly
                     if (current_size != old_info['size'] or 
                         current_mtime != old_info['mtime']):
                         
-                        # Only hash if size/time changed
+                        # Only hash if size or time keys has been changed
                         print(f"   📄 {file} - size/time changed, hashing...")
                         current_hash = hash_file(filepath)
                         
@@ -113,7 +111,7 @@ def check_integrity(path):
                         else:
                             print(f"   📄 {file} - false alarm (same hash) - {color('mtime or filesize from baseline.json has been modified', 'red')}")
                     else:
-                        print(f"   📄 {file} - unchanged")
+                        print(f"   📄 {file} ({filepath}) - unchanged")
                 else:
                     # New file
                     changes.append({
@@ -124,6 +122,23 @@ def check_integrity(path):
             except:
                 print(f"   {file} - error checking")
     
+    # Second pass: Check for deleted files
+    baseline_files = set(prev_baseline.keys())
+    deleted_files = baseline_files - current_files
+    
+    # explaination...
+    # baseline_files = {'/path/file1.txt', '/path/file2.txt', '/path/file3.txt'}
+    # current_files = {'/path/file1.txt', '/path/file3.txt', '/path/file4.txt'}
+    # deleted_files = baseline_files - current_files
+    # Result: {'/path/file2.txt'}
+
+    
+    for deleted_file in deleted_files:
+        changes.append({
+            'file': deleted_file,
+            'status': 'deleted'
+        })
+    
     # Show results
     if changes:
         print(f"\nFound {len(changes)} changes:")
@@ -132,7 +147,9 @@ def check_integrity(path):
                 print(color(f"   MODIFIED: {change['file']}", 'yellow'))
                 print(f"   Old: {change['old_hash']} -> New: {change['new_hash']}")
             elif change['status'] == 'new':
-                print(color(f"   NEW: {change['file']}", 'yellow'))
+                print(color(f"   NEW: {change['file']}", 'green'))
+            elif change['status'] == 'deleted':
+                print(color(f"   DELETED: {change['file']}", 'red'))
     else:
         print(color("No changes detected on each file content!", 'green'))
 
