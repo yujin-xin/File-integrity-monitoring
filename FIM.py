@@ -27,17 +27,17 @@ def color(text, textColor):
     return f"{colors.get(textColor)}{text}{Style.RESET_ALL}"
 
 def get_hash_algorithm():
-    """Get hash algorithm from command line arguments"""
+
+    #Get hash algorithm from command line arguments
     if len(sys.argv) >= 4 and sys.argv[3] in ['sha1', 'sha256', 'sha512']:
         return sys.argv[3]
-    return 'sha1'  # Default
+    return 'sha1'  # This is defualt
 
 def detect_hash_algorithm(hash_string):
-    """Detect hash algorithm based on hash length"""
     hash_lengths = {
-        40: 'sha1',      # SHA1 = 40 hex characters
-        64: 'sha256',    # SHA256 = 64 hex characters
-        128: 'sha512'    # SHA512 = 128 hex characters
+        40: 'sha1',      # SHA1 
+        64: 'sha256',    # SHA256 
+        128: 'sha512'    # SHA512 
     }
     return hash_lengths.get(len(hash_string), 'unknown')
 
@@ -81,14 +81,14 @@ def create_baseline(path, algorithm='sha1'):
     return baseline
 
 def load_baseline():
-    """Load baseline from file"""
+    # Load an exisiting baseline.json (If present)
     try:
         with open('baseline.json', 'r') as f:
             baseline = json.load(f)
             
             # Handle old format (without metadata)
             if 'metadata' not in baseline:
-                print(color("⚠️  Warning: Old baseline format detected. Hash algorithm unknown (assuming SHA1)", 'yellow'))
+                print(color("   Warning: Old baseline format detected. Hash algorithm unknown (assuming SHA1)", 'yellow'))
                 return {
                     'metadata': {'hash_algorithm': 'sha1'},
                     'files': baseline
@@ -100,7 +100,6 @@ def load_baseline():
         return None
 
 def check_integrity(path, algorithm='sha1'):
-    """Check files against baseline - the smart way!"""
     print("Checking file integrity...")
     
     prev_baseline = load_baseline()
@@ -135,7 +134,7 @@ def check_integrity(path, algorithm='sha1'):
                 if filepath in baseline_files:
                     old_info = baseline_files[filepath]
 
-                    # Fast check: First check size and time instead of hashing directly
+                    # First check size and time instead of hashing directly
                     if (current_size != old_info['size'] or 
                         current_mtime != old_info['mtime']):
                         
