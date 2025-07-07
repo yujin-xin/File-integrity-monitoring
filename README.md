@@ -13,3 +13,4 @@ File Integrity Monitoring application. A python based FIM tool that tracks modif
 ```bash
 git clone https://github.com/yourusername/file-integrity-checker.git
 cd file-integrity-checker
+python3 FIM.py "./root"
