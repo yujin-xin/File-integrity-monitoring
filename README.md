@@ -24,7 +24,7 @@ A lightweight, cross-platform File Integrity Monitoring (FIM) tool developed in 
 # 📦 Installation
 
 ```bash
-git clone https://github.com/yourusername/file-integrity-checker.git
+git clone https://github.com/yujin-xin/File-integrity-monitoring
 cd file-integrity-checker
 python3 FIM.py "./root"
 Now the File Integrity Checker will scan...
