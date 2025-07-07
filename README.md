@@ -3,6 +3,12 @@
 
 A lightweight, cross-platform File Integrity Monitoring (FIM) tool developed in Python to provide reliable file integrity verification using cryptographic hash functions. Designed with portability and simplicity in mind, the tool operates entirely from the command line, requiring no installation or graphical interface.
 
+## Core componenets
+* Monitoring and event detection
+* Hashing Algorithms
+* Baseline Comparison
+* File hashing and comparison
+
 ## Key features
 * Portability: Runs on any system with Python installed. No dependencies or installation required.
 * Multi-Hash Support: Supports SHA1, SHA256, and SHA512 algorithms for checksum generation and verification.
