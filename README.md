@@ -3,7 +3,7 @@ File Integrity Monitoring application. A python based FIM tool that tracks modif
 
 ## Features
 
-* Portable. Run anytime, anywhere
+* Portable. Run anytime, anywhere (as long as python is installed on a system)
 * Generate and verify checksums (SHA1 - SHA256)
 * Compare current file hash with known hash
 * Full CLI for simplicity. No UI needed
