@@ -38,5 +38,6 @@ A lightweight, cross-platform File Integrity Monitoring (FIM) tool developed in 
 ```bash
 git clone https://github.com/yujin-xin/File-integrity-monitoring
 cd File-integrity-monitoring
-python3 FIM.py "./root"
+python3 FIM.py "./rootFolder"
 ```
+Note: "./rootFolder" is the directory containing files to be hashed.
